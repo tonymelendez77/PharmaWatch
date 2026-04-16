@@ -1,0 +1,10 @@
+lightgbm
+mlflow
+shap
+scikit-learn
+pandas
+numpy
+snowflake-connector-python
+google-cloud-bigquery
+matplotlib
+python-dotenv
