@@ -1,0 +1,7 @@
+chromadb
+sentence-transformers
+langchain
+langchain-groq
+langchain-community
+groq
+python-dotenv
