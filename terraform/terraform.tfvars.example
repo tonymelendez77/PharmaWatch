@@ -1,0 +1,6 @@
+aws_region         = "us-east-1"
+aws_account_id     = "123456789012"
+gcp_project_id     = "my-gcp-project-id"
+snowflake_account  = "xy12345.us-east-1"
+snowflake_username = "PHARMAWATCH_USER"
+snowflake_password = "your-snowflake-password-here"

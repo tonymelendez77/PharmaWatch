@@ -1,0 +1,4 @@
+great-expectations==0.18.12
+pandas
+boto3
+python-dotenv
