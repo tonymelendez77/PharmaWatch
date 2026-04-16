@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: drug_master_profile
+    description: "Single wide table per drug. Joins adverse, sentiment, research, and label data."
+    columns:
+      - name: drug_name
+        tests:
+          - not_null
+          - unique
+      - name: adv_total_reports
+        tests:
+          - not_null
+      - name: sent_total_mentions
+        tests:
+          - not_null

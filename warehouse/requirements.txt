@@ -1,0 +1,6 @@
+snowflake-connector-python
+google-cloud-bigquery
+pandas-gbq
+pyarrow
+pandas
+python-dotenv

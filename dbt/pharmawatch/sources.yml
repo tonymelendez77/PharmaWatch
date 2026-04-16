@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: pharmawatch_clean
+    schema: pharmawatch_clean
+    tables:
+      - name: faers_events
+      - name: pubmed_articles
+      - name: reddit_mentions
+      - name: drug_labels
