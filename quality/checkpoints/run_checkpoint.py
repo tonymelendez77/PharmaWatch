@@ -32,8 +32,8 @@ def main():
     data_file_path = sys.argv[2]
 
     if suite_name not in SUITE_FILES:
-        print("[FAIL] Checkpoint failed for {}".format(suite_name))
-        print("Unknown suite. Valid values: {}".format(", ".join(SUITE_FILES.keys())))
+        print("unknown suite: {}".format(suite_name))
+        print("valid options: {}".format(", ".join(SUITE_FILES.keys())))
         raise SystemExit(1)
 
     module = load_suite_module(suite_name)
@@ -41,14 +41,13 @@ def main():
         module.run(data_file_path)
     except SystemExit as exc:
         if exc.code and exc.code != 0:
-            print("[FAIL] Checkpoint failed for {}".format(suite_name))
+            print("checkpoint FAILED: {}".format(suite_name))
             raise SystemExit(1)
     except Exception as exc:
-        print("[FAIL] Checkpoint failed for {}".format(suite_name))
-        print("Error: {}".format(exc))
+        print("checkpoint FAILED: {} - {}".format(suite_name, exc))
         raise SystemExit(1)
 
-    print("[OK] Checkpoint passed for {}".format(suite_name))
+    print("checkpoint passed: {}".format(suite_name))
 
 
 if __name__ == "__main__":

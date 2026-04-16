@@ -39,12 +39,12 @@ def run(path):
 
     failed = [r for r in results if not r.success]
     if failed:
-        print("[FAIL] {} failed".format(SUITE_NAME))
+        print("FAILED {}".format(SUITE_NAME))
         for r in failed:
-            print("  - {}: {}".format(r.expectation_config.expectation_type, r.expectation_config.kwargs))
+            print("  {} -> {}".format(r.expectation_config.expectation_type, r.expectation_config.kwargs))
         raise SystemExit(1)
 
-    print("[OK] {} passed".format(SUITE_NAME))
+    print("{} passed".format(SUITE_NAME))
 
 
 if __name__ == "__main__":

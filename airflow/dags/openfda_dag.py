@@ -119,9 +119,9 @@ def validate_openfda(**context):
             logger.info(result.stderr)
 
         if result.returncode == 1:
-            raise AirflowException("[FAIL] Quality gate failed for {} on {}".format(SOURCE, ds))
+            raise AirflowException("quality gate failed: {} ({})".format(SOURCE, ds))
 
-        print("[OK] Quality gate passed for {} on {}".format(SOURCE, ds))
+        logger.info("quality gate passed: %s (%s)", SOURCE, ds)
     finally:
         if os.path.exists(tmp_path):
             try:

@@ -13,7 +13,7 @@ logger = logging.getLogger("reddit-consumer")
 TOPIC = "reddit.drug_mentions"
 S3_BUCKET = "pharmawatch-data-lake"
 S3_PREFIX = "raw/reddit/"
-BATCH_SIZE = 100
+BATCH_SIZE = 100  # flush every N messages
 POLL_TIMEOUT = 1.0
 BATCH_WAIT_SECONDS = 10
 
@@ -87,7 +87,7 @@ def process_batch(messages):
 
     written = write_batch_to_s3(valid_records)
     consumer.commit(asynchronous=False)
-    print("[OK] Wrote {} records to S3".format(written))
+    print("wrote {} to s3".format(written))
     sys.stdout.flush()
 
 

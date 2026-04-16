@@ -80,6 +80,6 @@ CREATE TABLE IF NOT EXISTS glue_catalog.pharmawatch.drug_labels (
 USING iceberg
 """)
 
-print("[OK] Iceberg tables created or already exist")
+print("iceberg tables ready")
 
 spark.stop()

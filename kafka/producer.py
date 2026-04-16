@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 logger = logging.getLogger("reddit-producer")
 
 TOPIC = "reddit.drug_mentions"
-POLL_INTERVAL_SECONDS = 120
+POLL_INTERVAL_SECONDS = 120  # 2 min between cycles
 SUBREDDITS = [
     "AskDocs",
     "pharmacy",
@@ -212,7 +212,7 @@ def poll_and_publish():
                 count += 1
 
     producer.flush()
-    print("[OK] Published {} records".format(count))
+    print("published {} records".format(count))
     sys.stdout.flush()
 
 
