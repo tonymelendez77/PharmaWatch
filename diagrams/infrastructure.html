@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PharmaWatch -- Infrastructure and Cloud Architecture</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a2e;color:#eee;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:30px 20px}
+h1{font-size:28px;margin-bottom:30px;letter-spacing:1px;color:#fff}
+.diagram{width:100%;max-width:1100px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.terraform-row{display:flex;justify-content:center;margin-bottom:4px}
+.tf-box{background:rgba(123,63,228,0.2);border:2px solid rgba(123,63,228,0.7);border-radius:12px;padding:14px 32px;font-size:16px;font-weight:700;color:#c4b5fd;text-align:center}
+.tf-arrows{display:flex;justify-content:center;gap:120px;margin-bottom:4px}
+.tf-arrow{display:flex;flex-direction:column;align-items:center}
+.tf-arrow-line{width:2px;height:20px;background:rgba(123,63,228,0.5)}
+.tf-arrow-head{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid rgba(123,63,228,0.5)}
+.cloud-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%}
+.cloud-region{border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.cloud-label{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.15)}
+.resource{background:rgba(255,255,255,0.08);border-radius:8px;padding:10px 16px;font-size:13px;font-weight:600}
+.aws-region{background:rgba(255,153,0,0.1);border:2px solid rgba(255,153,0,0.5)}
+.aws-region .cloud-label{color:#ffb347}
+.aws-region .resource{border:1px solid rgba(255,153,0,0.3);color:#ffd699}
+.gcp-region{background:rgba(66,133,244,0.1);border:2px solid rgba(66,133,244,0.5)}
+.gcp-region .cloud-label{color:#7aabf7}
+.gcp-region .resource{border:1px solid rgba(66,133,244,0.3);color:#a8c8fa}
+.confluent-region{background:rgba(34,197,94,0.1);border:2px solid rgba(34,197,94,0.5)}
+.confluent-region .cloud-label{color:#6ee7a0}
+.confluent-region .resource{border:1px solid rgba(34,197,94,0.3);color:#a7f3c8}
+.databricks-region{background:rgba(220,38,38,0.1);border:2px solid rgba(220,38,38,0.5)}
+.databricks-region .cloud-label{color:#fca5a5}
+.databricks-region .resource{border:1px solid rgba(220,38,38,0.3);color:#fecaca}
+.saas-region{background:rgba(156,163,175,0.1);border:2px solid rgba(156,163,175,0.4)}
+.saas-region .cloud-label{color:#d1d5db}
+.saas-region .resource{border:1px solid rgba(156,163,175,0.3);color:#e5e7eb}
+.full-width{grid-column:1 / -1}
+</style>
+</head>
+<body>
+<h1>PharmaWatch -- Infrastructure and Cloud Architecture</h1>
+<div class="diagram">
+
+<div class="terraform-row">
+<div class="tf-box">Terraform (IaC)</div>
+</div>
+
+<div class="tf-arrows">
+<div class="tf-arrow"><div class="tf-arrow-line"></div><div class="tf-arrow-head"></div></div>
+<div class="tf-arrow"><div class="tf-arrow-line"></div><div class="tf-arrow-head"></div></div>
+<div class="tf-arrow"><div class="tf-arrow-line"></div><div class="tf-arrow-head"></div></div>
+</div>
+
+<div class="cloud-grid">
+
+<div class="cloud-region aws-region">
+<div class="cloud-label">AWS</div>
+<div class="resource">S3 Data Lake (pharmawatch-data-lake)</div>
+<div class="resource">Apache Iceberg Tables</div>
+<div class="resource">IAM Role (pharmawatch-spark-role)</div>
+<div class="resource">Glue Catalog</div>
+</div>
+
+<div class="cloud-region gcp-region">
+<div class="cloud-label">Google Cloud Platform</div>
+<div class="resource">BigQuery Dataset (pharmawatch)</div>
+</div>
+
+<div class="cloud-region confluent-region">
+<div class="cloud-label">Confluent Cloud</div>
+<div class="resource">Kafka Topic: reddit.drug_mentions</div>
+</div>
+
+<div class="cloud-region databricks-region">
+<div class="cloud-label">Databricks</div>
+<div class="resource">Spark Cluster</div>
+<div class="resource">MLflow Tracking Server</div>
+<div class="resource">Model Registry</div>
+</div>
+
+<div class="cloud-region saas-region full-width">
+<div class="cloud-label">SaaS / Free Tier</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<div class="resource">Snowflake Warehouse (PHARMAWATCH_WH)</div>
+<div class="resource">HuggingFace Spaces (Gradio UI)</div>
+<div class="resource">Render (FastAPI)</div>
+</div>
+</div>
+
+</div>
+</div>
+</body>
+</html>

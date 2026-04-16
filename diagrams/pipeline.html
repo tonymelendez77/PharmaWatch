@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PharmaWatch -- Data Pipeline</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a2e;color:#eee;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:30px 20px}
+h1{font-size:28px;margin-bottom:30px;letter-spacing:1px;color:#fff}
+.pipeline{display:flex;flex-direction:column;align-items:center;gap:0;width:100%;max-width:1000px}
+.layer{width:100%;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.layer-label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:0.85}
+.nodes{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.node{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:10px 20px;font-size:14px;font-weight:600;white-space:nowrap;backdrop-filter:blur(4px)}
+.arrow-container{display:flex;justify-content:center;padding:6px 0}
+.arrow-down{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:16px solid rgba(255,255,255,0.35)}
+.l-sources{background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.5)}
+.l-sources .node{border-color:rgba(59,130,246,0.6);color:#93bbfc}
+.l-ingest{background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.5)}
+.l-ingest .node{border-color:rgba(249,115,22,0.6);color:#fdb97e}
+.l-lake{background:rgba(20,184,166,0.2);border:1px solid rgba(20,184,166,0.5)}
+.l-lake .node{border-color:rgba(20,184,166,0.6);color:#81e6d9}
+.l-transform{background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.5)}
+.l-transform .node{border-color:rgba(139,92,246,0.6);color:#c4b5fd}
+.l-warehouse{background:rgba(30,64,175,0.2);border:1px solid rgba(30,64,175,0.5)}
+.l-warehouse .node{border-color:rgba(30,64,175,0.6);color:#93a8fc}
+.l-intel{background:rgba(220,38,38,0.2);border:1px solid rgba(220,38,38,0.5)}
+.l-intel .node{border-color:rgba(220,38,38,0.6);color:#fca5a5}
+.l-serving{background:rgba(22,163,74,0.2);border:1px solid rgba(22,163,74,0.5)}
+.l-serving .node{border-color:rgba(22,163,74,0.6);color:#86efac}
+</style>
+</head>
+<body>
+<h1>PharmaWatch -- Data Pipeline</h1>
+<div class="pipeline">
+
+<div class="layer l-sources">
+<div class="layer-label">Layer 1 -- Data Sources</div>
+<div class="nodes">
+<div class="node">Reddit</div>
+<div class="node">FDA FAERS</div>
+<div class="node">PubMed</div>
+<div class="node">OpenFDA</div>
+</div>
+</div>
+
+<div class="arrow-container"><div class="arrow-down"></div></div>
+
+<div class="layer l-ingest">
+<div class="layer-label">Layer 2 -- Ingestion</div>
+<div class="nodes">
+<div class="node">Kafka (Reddit streaming)</div>
+<div class="node">Airflow DAG (FAERS)</div>
+<div class="node">Airflow DAG (PubMed)</div>
+<div class="node">Airflow DAG (OpenFDA)</div>
+</div>
+</div>
+
+<div class="arrow-container"><div class="arrow-down"></div></div>
+
+<div class="layer l-lake">
+<div class="layer-label">Layer 3 -- Data Lake</div>
+<div class="nodes">
+<div class="node">S3 + Apache Iceberg</div>
+<div class="node">Great Expectations</div>
+</div>
+</div>
+
+<div class="arrow-container"><div class="arrow-down"></div></div>
+
+<div class="layer l-transform">
+<div class="layer-label">Layer 4 -- Transform</div>
+<div class="nodes">
+<div class="node">Scala + Spark on Databricks</div>
+</div>
+</div>
+
+<div class="arrow-container"><div class="arrow-down"></div></div>
+
+<div class="layer l-warehouse">
+<div class="layer-label">Layer 5 -- Warehouse</div>
+<div class="nodes">
+<div class="node">Snowflake / BigQuery (switchable)</div>
+<div class="node">dbt Transformations</div>
+</div>
+</div>
+
+<div class="arrow-container"><div class="arrow-down"></div></div>
+
+<div class="layer l-intel">
+<div class="layer-label">Layer 6 -- Intelligence</div>
+<div class="nodes">
+<div class="node">LightGBM + MLflow + SHAP</div>
+<div class="node">ChromaDB + LangChain + Groq</div>
+</div>
+</div>
+
+<div class="arrow-container"><div class="arrow-down"></div></div>
+
+<div class="layer l-serving">
+<div class="layer-label">Layer 7 -- Serving</div>
+<div class="nodes">
+<div class="node">FastAPI on Render</div>
+<div class="node">Gradio on HuggingFace Spaces</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PharmaWatch -- ML and RAG Architecture</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a2e;color:#eee;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:30px 20px}
+h1{font-size:28px;margin-bottom:30px;letter-spacing:1px;color:#fff}
+.diagram{width:100%;max-width:1100px;display:flex;flex-direction:column;align-items:center;gap:0}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:40px;width:100%}
+.column{display:flex;flex-direction:column;align-items:center;gap:0}
+.col-title{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;padding:8px 20px;border-radius:8px}
+.ml-title{background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.5);color:#fdb97e}
+.rag-title{background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.5);color:#93bbfc}
+.step{width:100%;max-width:380px;border-radius:10px;padding:12px 18px;font-size:14px;font-weight:600;text-align:center;margin:0 auto}
+.ml-step{background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.35);color:#fdd8b0}
+.rag-step{background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.35);color:#b8d4fe}
+.arrow-sm{display:flex;justify-content:center;padding:4px 0}
+.arrow-sm-head{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:12px solid rgba(255,255,255,0.3)}
+.parallel-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;width:100%}
+.parallel-node{border-radius:8px;padding:10px 12px;font-size:12px;font-weight:600;text-align:center;flex:1;min-width:80px;max-width:100px}
+.ml-par{background:rgba(249,115,22,0.18);border:1px solid rgba(249,115,22,0.4);color:#fdd8b0}
+.merge-section{width:100%;display:flex;flex-direction:column;align-items:center;gap:0;margin-top:8px}
+.merge-bar{width:80%;max-width:800px;height:2px;background:linear-gradient(90deg,rgba(249,115,22,0.5),rgba(59,130,246,0.5));margin:8px 0}
+.merge-step{width:90%;max-width:700px;border-radius:12px;padding:14px 24px;font-size:15px;font-weight:700;text-align:center}
+.serve-step{background:rgba(22,163,74,0.15);border:2px solid rgba(22,163,74,0.5);color:#86efac}
+.ui-step{background:rgba(139,92,246,0.15);border:2px solid rgba(139,92,246,0.5);color:#c4b5fd}
+</style>
+</head>
+<body>
+<h1>PharmaWatch -- ML and RAG Architecture</h1>
+<div class="diagram">
+
+<div class="columns">
+
+<div class="column">
+<div class="col-title ml-title">ML Pipeline</div>
+
+<div class="step ml-step">drug_master_profile (warehouse)</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="step ml-step">features.py -- feature engineering</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="parallel-row">
+<div class="parallel-node ml-par">LightGBM Serious</div>
+<div class="parallel-node ml-par">LightGBM Hospital</div>
+<div class="parallel-node ml-par">LightGBM Death</div>
+<div class="parallel-node ml-par">LightGBM Disability</div>
+</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="step ml-step">predict_risk() -- merge predictions</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="step ml-step">SHAP TreeExplainer (serious model)</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="step ml-step">Risk Scores + Feature Contributions</div>
+</div>
+
+<div class="column">
+<div class="col-title rag-title">RAG Pipeline</div>
+
+<div class="step rag-step">PubMed abstracts (warehouse)</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="step rag-step">SentenceTransformer (all-MiniLM-L6-v2)</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="step rag-step">ChromaDB (vector store)</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="step rag-step">retrieve_for_profile()</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="step rag-step">LangChain Agent (tool-calling)</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="step rag-step">Groq / Llama 3 (inference)</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+
+<div class="step rag-step">Research Digest + Q&A</div>
+</div>
+
+</div>
+
+<div class="merge-section">
+<div class="merge-bar"></div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+<div class="merge-step serve-step">FastAPI: /predict + /ask + /digest</div>
+<div class="arrow-sm"><div class="arrow-sm-head"></div></div>
+<div class="merge-step ui-step">Gradio UI on HuggingFace Spaces</div>
+</div>
+
+</div>
+</body>
+</html>
