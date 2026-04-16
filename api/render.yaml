@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: pharmawatch-api
+    runtime: python
+    buildCommand: pip install -r api/requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: WAREHOUSE
+        value: set_in_dashboard
+      - key: SNOWFLAKE_ACCOUNT
+        value: set_in_dashboard
+      - key: SNOWFLAKE_USER
+        value: set_in_dashboard
+      - key: SNOWFLAKE_PASSWORD
+        value: set_in_dashboard
+      - key: SNOWFLAKE_DATABASE
+        value: set_in_dashboard
+      - key: SNOWFLAKE_SCHEMA
+        value: set_in_dashboard
+      - key: SNOWFLAKE_WAREHOUSE
+        value: set_in_dashboard
+      - key: SNOWFLAKE_TRIAL_START
+        value: set_in_dashboard
+      - key: GCP_PROJECT_ID
+        value: set_in_dashboard
+      - key: BIGQUERY_DATASET
+        value: set_in_dashboard
+      - key: MLFLOW_TRACKING_URI
+        value: set_in_dashboard
+      - key: GROQ_API_KEY
+        value: set_in_dashboard
+      - key: CHROMA_PERSIST_DIR
+        value: set_in_dashboard
+      - key: PHARMAWATCH_ROOT
+        value: set_in_dashboard
